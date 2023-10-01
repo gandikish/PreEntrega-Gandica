@@ -1,39 +1,29 @@
-let btn = document.querySelector('#btn').addEventListener('click',btnClick);
-let btn2 =document.querySelector('#btn2').addEventListener('click',btnClick2);
+alert("Hola! bienvenido al juego de piedra, papel o tijera, son dos jugadores, cada uno elige una de esas tres opciones")
 
-let precioFinal = document.querySelector('#precioFinal');
+const primerPlayer = prompt("Player 1, ingresa tu nombre")
+const segundoPlayer = prompt("Player 2, ingresa tu nombre")
 
-let inputPrecio = document.querySelector('#ingresarPrecio');
+const gameOptions = ["piedra", "papel", "tijera"];
 
-let inputDescuento= document.querySelector('#ingresarDescuento');
+const gameRules = {
+  piedra: {
+    tijera: true,
+  },
+  papel: {
+    piedra: true,
+  },
+  tijera: {
+    papel: true,
+  },
+};
+function game(player1, player2) {
+  if (!gameOptions.includes(player1) | !gameOptions.includes(player2))
+    throw new Error("Opción de juego no válida");
 
-inputPrecio.addEventListener('click', function(){
-    inputPrecio.value=""
-})
-inputDescuento.addEventListener('click', function(){
-    inputDescuento.value=""
-})
+  if (player1 === player2) return "Empate";
 
-
-
-
-function btnClick(){
-    dato1 = document.querySelector('#ingresarPrecio').value;
-
-    dato2 = document.querySelector('#ingresarDescuento').value;
-
-    descuento= dato1/100 * dato2;
-
-    resultado= dato1-descuento;
-
-    precioFinal.value=resultado;
+  if (gameRules[player1][player2]) return primerPlayer + " gana";
+  return segundoPlayer + " gana";
 }
 
-function btnClick2(){
-
-    inputPrecio.value=0;
-    inputDescuento.value=0;
-    precioFinal.value=0;
-
-}
-
+console.log(game(prompt("Que usara el primer jugador?"), prompt("Que usara el segundo jugador?")));
